@@ -1,25 +1,22 @@
-# 🎮 Project Catmail - Game Prototype with Design Patterns
+# Project Catmail - Game Prototype with Design Patterns
 
-## 📝 คำอธิบายโปรเจกต์
+## คำอธิบาย
 
-**Project Catmail** เป็น 2D game prototype ที่พัฒนาบน **Unity 2D** โดยใช้ **Design Patterns** มากมาย เพื่อให้โค้ดมีความยืดหยุ่น (Flexible) ง่ายต่อการขยายเพิ่มเติม (Extensible) และง่ายต่อการบำรุงรักษา (Maintainable)
+**Project Catmail** เป็น 2D game prototype ที่พัฒนาบน **Unity 2D** 
 
-### 🎯 เป้าหมายของเกม
-- เล่นเป็นแมวน้อยชื่อ Catmail
-- สะสมอาหาร (Items) และ coins
-- หลีกเลี่ยงศัตรู (Enemies)
-- ยกระดับอำนาจของตัวละครผ่านระบบ upgrade
+### เป้าหมายของเกม
+- ตามหาความรงจำของแมวน้อย
+- ส่งพัสดุให้ถูกบ้าน
 
 ---
 
-## 🏗️ Design Patterns ที่ใช้
+## Design Patterns ที่ใช้
 
-### 1. **Observer Pattern (สัง่เกต/ผู้สังเกต)** 
+### 1. **Observer Pattern** 
 **ที่ไหน:** Event system สำหรับ UI updates
 
 **ทำไมใช้:**
-- เมื่อ Player เก็บ item หรือได้ experience ตัว UI ต้องอัพเดตอัตโนมัติ
-- พืชที่เก่าเป็นวิธี "UI เอง pull ข้อมูล" มันจะส่องเสีย น้ำหนัก
+- เมื่อ Player ส่งพัสดุ ตัว UI ต้องอัพเดตอัตโนมัติ
 - Observer ทำให้ Game Manager "push" ข้อมูลไปให้ UI อัตโนมัติ
 
 **ตัวอย่างการใช้:**
@@ -35,19 +32,19 @@ OnItemCollected?.Invoke(itemCount);
 ```
 
 **ประโยชน์:**
-✅ Loose coupling - UI ไม่ต้อง reference GameManager  
-✅ ง่ายการเพิ่ม listener ใหม่  
-✅ ไม่ต้องมา modify GameManager ทุกครั้งที่มี listener ใหม่
+- Loose coupling - UI ไม่ต้อง reference GameManager  
+- ง่ายการเพิ่ม listener ใหม่  
+- ไม่ต้องมา modify GameManager ทุกครั้งที่มี listener ใหม่
 
 ---
 
-### 2. **Factory Pattern (โรงงาน)** 
+### 2. **Factory Pattern** 
 **ที่ไหน:** ItemFactory และ EnemyFactory
 
 **ทำไมใช้:**
 - สร้าง Item (apple, banana, coin) ทุกประเภท
 - สร้าง Enemy ทุกประเภท
-- เก่าเป็นวิธี `Instantiate(prefab)` ทั่ว ๆ ไปข้างหลังงาน
+- เก่าเป็นวิธี `Instantiate(prefab)` ทั่วๆ ไปข้างหลังงาน
 - Factory ศูนย์กลาง logic การสร้าง objects
 
 **ตัวอย่างการใช้:**
@@ -74,19 +71,19 @@ Item newItem = factory.CreateItem(ItemType.Apple, spawnPos);
 ```
 
 **ประโยชน์:**
-✅ ศูนย์กลางการสร้าง objects  
-✅ เปลี่ยนวิธีการสร้าง item ได้ยังไงหลายที่ต้องเปลี่ยน  
-✅ ง่ายการเพิ่ม item type ใหม่
+- ศูนย์กลางการสร้าง objects  
+- เปลี่ยนวิธีการสร้าง item ได้ยังไงหลายที่ต้องเปลี่ยน  
+- ง่ายการเพิ่ม item type ใหม่
 
 ---
 
-### 3. **State Pattern (สถานะ)** 
+### 3. **State Pattern** 
 **ที่ไหน:** PlayerController และ Enemy AI states
 
 **ทำไมใช้:**
 - Player มี states: Idle, Running, Jumping, Taking Damage
 - Enemy มี states: Patrolling, Chasing, Attacking
-- เก่าเป็น "if else" ยาว ๆ มัน messy ยาก maintain
+- เก่าเป็น "if else" ยาวๆ มัน messy ยาก maintain
 - State Pattern แยกแต่ละ state เป็น class ตัวเอง
 
 **ตัวอย่างการใช้:**
@@ -111,13 +108,13 @@ stateMachine.TransitionTo(new RunningState());
 ```
 
 **ประโยชน์:**
-✅ ลบ nested if else  
-✅ แต่ละ state เป็นตัวเอง ง่ายจัดการ  
-✅ ง่ายการเพิ่ม state ใหม่ 
+- ลบ nested if else  
+- แต่ละ state เป็นตัวเอง ง่ายจัดการ  
+- ง่ายการเพิ่ม state ใหม่ 
 
 ---
 
-## 📁 โครงสร้างโปรเจกต์
+## โครงสร้างโปรเจกต์
 
 ```
 ProjectCatmail/
@@ -151,22 +148,16 @@ ProjectCatmail/
 
 ---
 
-## 🚀 วิธีการใช้ Game
+## วิธีการเล่น Game
 
 ### ควบคุมการเล่น:
 - **Arrow Keys / WASD**: เดินไปมา
 - **Space**: กระโดด
 - **อัตโนมัติ**: เก็บ item เมื่อสัมผัส
 
-### เป้าหมาย:
-- ✅ เก็บ apple เพื่อเพิ่ม health
-- 💰 เก็บ coin เพื่อเพิ่ม score
-- ❌ หลีกเลี่ยง enemy
-- ⬆️ ยกระดับ upgrade ของตัวละคร
-
 ---
 
-## 📚 Design Patterns Reference
+## Design Patterns Reference
 
 | Pattern | ไฟล์ | ประเภท | ประโยชน์ |
 |---------|------|--------|---------|
@@ -176,52 +167,30 @@ ProjectCatmail/
 
 ---
 
-## 🔄 Commit History
+## Commit History
 
 ทุก commit จะแสดงวิธีการปรับปรุงโค้ดและการใช้ Design Pattern:
 
 ```
-✨ Implement Observer Pattern for event system
+Implement Observer Pattern for event system
    - จำหน่ายระบบ event การเก็บ item
    - UI subscribe เข้ามารับ updates
    
-🏭 Implement Factory Pattern for item creation
+Implement Factory Pattern for item creation
    - Centralize logic สร้าง item ต่าง ๆ
    - ง่ายการเพิ่ม item type ใหม่
 
-🎮 Implement State Pattern for player control
+Implement State Pattern for player control
    - แยก Idle, Running, Jumping state
    - เอาเอา nested if-else ออกไป
 ```
 
 ---
 
-## 💡 วิธีการเรียนรู้ Patterns
+## วิธีการเรียนรู้ Patterns
 
-1. **ศึกษา commit ต่าง ๆ** เพื่อเข้าใจว่า pattern ไหนใช้ที่ไหน
+1. **ศึกษา commit ต่างๆ** เพื่อเข้าใจว่า pattern ไหนใช้ที่ไหน
 2. **ดู code comments** ที่อธิบายรายละเอียด
 3. **Modify code** และทดลองเพิ่ม features ใหม่
 4. **เห็นความแตกต่าง** ระหว่าง old code vs pattern-based code
 
----
-
-## 🎓 สิ่งที่ได้เรียนรู้
-
-✅ วิธีใช้ Design Patterns ในเกม  
-✅ Structure code ให้ยืดหยุ่น  
-✅ Loose coupling vs tight coupling  
-✅ Event-driven architecture  
-✅ Object factory creation  
-✅ State management
-
----
-
-## 📞 ติดต่อ
-
-GitHub: [@Dinovinst](https://github.com/Dinovinst)
-
----
-
-**Last Updated:** June 2026  
-**Unity Version:** 2023.x+  
-**Language:** C#
